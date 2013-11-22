@@ -6,7 +6,7 @@ public class main
 	{
 
 		String key = "asdqwejklaaaaaaaaaaaaaaasdasdaqwxzcxzaaassssssssdddddqddqqqqq";
-		String a = CifraRolim.cipher("BETO FIELD BOLADÃO JAJÁ",key);
+		String a = CifraRolim.cipher("",key);
 		System.out.print(a+"\n");
 		System.out.print(CifraRolim.decipher(a,key));
 	}

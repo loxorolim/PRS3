@@ -9,7 +9,7 @@ public class CifraRolim
 
 	public static String cipher(String message,String key)
 	{
-		if(key.length() == 0)
+		if(key.length() == 0 || message.length() == 0)
 			return message;
 		if(key.length() > message.length())
 			key = key.substring(0,message.length());
@@ -52,7 +52,7 @@ public class CifraRolim
 	}
 	public static  String decipher(String message,String key)
 	{
-		if(key.length() == 0)
+		if(key.length() == 0 || message.length() == 0)
 			return message;
 		if(key.length() > message.length())
 			key = key.substring(0,message.length());
