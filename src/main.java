@@ -4,7 +4,10 @@ public class main
 
 	public static void main(String [ ] args)
 	{
-		CifraRolim x = new CifraRolim("cba","grandekibe");
-		x.cipher();
+
+		String key = "asdqwejklaaaaaaaaaaaaaaasdasdaqwxzcxzaaassssssssdddddqddqqqqq";
+		String a = CifraRolim.cipher("BETO FIELD BOLADÃO JAJÁ",key);
+		System.out.print(a+"\n");
+		System.out.print(CifraRolim.decipher(a,key));
 	}
 }

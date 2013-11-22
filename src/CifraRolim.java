@@ -4,18 +4,18 @@ import java.util.Arrays;
 
 public class CifraRolim 
 {
-	String key;
-	String message;
-	
-	public CifraRolim(String key,String message)
+
+	//String message;
+
+	public static String cipher(String message,String key)
 	{
-		this.key = key;
-		this.message = message;
-	}
-	public String cipher()
-	{
+		if(key.length() == 0)
+			return message;
+		if(key.length() > message.length())
+			key = key.substring(0,message.length());
+		key = removeDuplicates(key);
 		String ret = "";
-		int[] order = getKeyNumber();
+		int[] order = getKeyNumber(key);
 		int messageSize = message.length();
 		int numberOfLines = (messageSize/key.length());
 		if(messageSize % key.length() != 0)
@@ -32,36 +32,72 @@ public class CifraRolim
 				msgPos++;
 			}		
 		}
-		
-		for(int i = 0; i < numberOfLines ; i++)
+		int finalLineNumber = messageSize%key.length();
+	
+		for(int i = 0; i < numberOfColumns ; i++)
 		{
-			
-			for(int j = 0; j < numberOfColumns ; j++)
+			int pos = getPositionInIntArray(i,order);
+			for(int j = 0; j < numberOfLines ; j++)
 			{
-				
+				if(!(j == numberOfLines-1 && pos > finalLineNumber-1 && finalLineNumber > 0))
+				{
+					ret+=matrix[j][pos];
+				}
+					
 			}		
 		}
-		
-//		String msgCopy = new String(message);
-//		for(int i = 0; i < msgCopy.length()/key.length()+1; i++)
-//		{
-//			for(int j = 0; j < key.length() ; j++)
-//			{
-//				ret+= msgCopy.charAt(getPositionInIntArray(j,order));
-//			}
-//			msgCopy = msgCopy.substring(key.length(),msgCopy.length());
-//		}
-//		System.out.print(ret);
-		
-		
-		return null;
+	//	System.out.print(ret);
+			
+		return ret;
 	}
-	public String decipher()
+	public static  String decipher(String message,String key)
 	{
-		return null;
+		if(key.length() == 0)
+			return message;
+		if(key.length() > message.length())
+			key = key.substring(0,message.length());
+		key = removeDuplicates(key);
+		String ret = "";
+		int[] order = getKeyNumber(key);
+		int messageSize = message.length();
+		int numberOfLines = (messageSize/key.length());
+		if(messageSize % key.length() != 0)
+			numberOfLines++;
+		int numberOfColumns = key.length();
+		char[][] matrix = new char[numberOfLines][numberOfColumns];
+		String msgCopy = new String(message);
+		int finalLineNumber = messageSize%key.length();
+		for(int i = 0; i < numberOfColumns ; i++)
+		{
+			int pos = getPositionInIntArray(i,order);
+			for(int j = 0; j < numberOfLines ; j++)
+			{
+				if(!(j == numberOfLines-1 && pos > finalLineNumber-1 && finalLineNumber > 0))
+					matrix[j][pos] = msgCopy.charAt(j);				
+			}	
+			if(pos > finalLineNumber-1 && finalLineNumber > 0)
+				msgCopy = msgCopy.substring(numberOfLines-1, msgCopy.length());
+			else
+				msgCopy = msgCopy.substring(numberOfLines, msgCopy.length());
+		}
+		for(int i = 0 ; i < numberOfLines ; i++)
+		{
+			for(int j = 0; j<numberOfColumns; j++)
+			{
+				//if(!(i == numberOfColumns && j > finalLineNumber-1))
+					ret += matrix[i][j];
+			}
+		}
+
+		
+		
+		
+		return ret;
 	}
-	public int[] getKeyNumber()
+
+	public static  int[] getKeyNumber(String k)
 	{
+		String key = new String(k);
 		int size = key.length();
 		int[] ret = new int[size];
 		char[] letters = key.toCharArray();
@@ -75,7 +111,7 @@ public class CifraRolim
 				
 		return ret;
 	}
-	public int getPositionInIntArray(int num,int [] array)
+	public  static int getPositionInIntArray(int num,int [] array)
 	{
 		for(int i = 0;i< array.length ; i++)
 		{
@@ -83,6 +119,17 @@ public class CifraRolim
 				return i;
 		}
 		return -1;
+	}
+	static String removeDuplicates(String s) 
+	{
+	    StringBuilder noDupes = new StringBuilder();
+	    for (int i = 0; i < s.length(); i++) {
+	        String si = s.substring(i, i + 1);
+	        if (noDupes.indexOf(si) == -1) {
+	            noDupes.append(si);
+	        }
+	    }
+	    return noDupes.toString();
 	}
 
 }
