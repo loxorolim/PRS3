@@ -84,7 +84,7 @@ public class CifraRolim
 		{
 			for(int j = 0; j<numberOfColumns; j++)
 			{
-				//if(!(i == numberOfColumns && j > finalLineNumber-1))
+				if(!(i == numberOfLines-1 && j > finalLineNumber-1))
 					ret += matrix[i][j];
 			}
 		}
