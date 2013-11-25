@@ -17,8 +17,8 @@ public class main
 //            
 //            System.out.println(decipheredMessage);
 		
-		String message = "Mensagem teste, ole ole olá!";
-		String key = "ajdabsiopdbasuipdbasihdsasdaqnmnmbnmbaio";
+		String message = "Abacate bate tanto quanto uma batida de carro";
+		String key = "aocue";
 		
 //		String yucipher = CifraRolim.cipher(message, key);
 //		String yudecipher = CifraRolim.decipher(yucipher, key);
